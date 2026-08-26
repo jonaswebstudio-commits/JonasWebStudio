@@ -95,7 +95,7 @@ export const sendContactMessage = createServerFn({ method: "POST" })
       source: String(data?.source ?? "").slice(0, 200) || null,
     };
   })
-  .handler(async ({ data }): Promise<{ ok: true; delivered: boolean }> => {
+  .handler(async ({ data }): Promise<{ ok: true; emailed: boolean }> => {
     const body = composeInquiry(data);
     const subject = data.packageLabel
       ? `Website inquiry — ${data.packageLabel} — ${data.name}`
@@ -121,10 +121,10 @@ export const sendContactMessage = createServerFn({ method: "POST" })
       // A configured transport that actually failed does surface an error.
       if (!(await isDeliveryConfigured())) {
         console.warn(`[inquiry] no delivery configured, logging instead:\n${subject}\n${body}`);
-        return { ok: true, delivered: false };
+        return { ok: true, emailed: false };
       }
       throw new Error("Couldn't send your message. Please email us directly.");
     }
 
-    return { ok: true, delivered: stored || emailed };
+    return { ok: true, emailed };
   });

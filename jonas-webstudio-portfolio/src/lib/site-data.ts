@@ -63,33 +63,3 @@ export function describePackage(key: string): string | null {
 export function describeAddons(ids: readonly string[]): string[] {
   return ADDONS.filter((a) => ids.includes(a.id)).map((a) => a.name);
 }
-
-/**
- * Fallback used when the server has no way to deliver an inquiry (no email key
- * and no database). Builds a prefilled message to the studio inbox so the
- * visitor can send it from their own mail client instead of losing it.
- */
-export function buildInquiryMailto(input: {
-  name: string;
-  email: string;
-  message: string;
-  business?: string | undefined;
-  packageKey?: string | undefined;
-  addons?: readonly string[] | undefined;
-}): string {
-  const packageLabel = input.packageKey ? describePackage(input.packageKey) : null;
-  const addonLabels = describeAddons(input.addons ?? []);
-  const subject = packageLabel
-    ? `Website inquiry - ${packageLabel}`
-    : "Website inquiry";
-  const body = [
-    `Name: ${input.name}`,
-    `Email: ${input.email}`,
-    ...(input.business ? [`Business: ${input.business}`] : []),
-    ...(packageLabel ? [`Package: ${packageLabel}`] : []),
-    ...(addonLabels.length ? [`Add-ons: ${addonLabels.join(", ")}`] : []),
-    "",
-    input.message,
-  ].join("\n");
-  return `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}

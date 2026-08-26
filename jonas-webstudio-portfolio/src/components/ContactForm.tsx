@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { useLanguage } from "@/lib/i18n";
 import { sendContactMessage } from "@/lib/contact.functions";
-import { buildInquiryMailto, STUDIO_EMAIL } from "@/lib/site-data";
+import { STUDIO_EMAIL } from "@/lib/site-data";
 
 export function ContactForm() {
   const { t, lang } = useLanguage();
@@ -12,15 +12,14 @@ export function ContactForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "fallback">("idle");
-  const [fallbackHref, setFallbackHref] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (status === "sending") return;
     setStatus("sending");
     try {
-      const result = await send({
+      await send({
         data: {
           name,
           email,
@@ -29,15 +28,6 @@ export function ContactForm() {
           source: typeof window !== "undefined" ? window.location.pathname : undefined,
         },
       });
-
-      // The server could not deliver it anywhere, so hand the visitor a
-      // prefilled email rather than claiming it was sent.
-      if (!result.delivered) {
-        setFallbackHref(buildInquiryMailto({ name, email, message }));
-        setStatus("fallback");
-        return;
-      }
-
       setStatus("sent");
       setName("");
       setEmail("");
@@ -130,18 +120,6 @@ export function ContactForm() {
         <p className="mt-4 rounded-2xl border border-primary/40 bg-primary/10 px-5 py-3 text-sm text-foreground">
           {t("formSent")}
         </p>
-      )}
-      {status === "fallback" && (
-        <div className="mt-4 rounded-2xl border border-border bg-card/60 px-5 py-4 text-sm">
-          <p className="text-foreground">{t("formFallback")}</p>
-          <a
-            href={fallbackHref}
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-neon)] px-5 py-2.5 text-sm font-semibold text-primary-foreground"
-          >
-            <Mail className="h-4 w-4" />
-            {t("formFallbackCta")}
-          </a>
-        </div>
       )}
     </form>
   );

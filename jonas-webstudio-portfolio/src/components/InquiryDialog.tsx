@@ -1,15 +1,10 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { Loader2, Mail, Send, X } from "lucide-react";
+import { Loader2, Send, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import { useLanguage } from "@/lib/i18n";
 import { sendContactMessage } from "@/lib/contact.functions";
-import {
-  ADDONS,
-  buildInquiryMailto,
-  CUSTOM_PACKAGE_KEY,
-  PRICING,
-} from "@/lib/site-data";
+import { ADDONS, CUSTOM_PACKAGE_KEY, PRICING } from "@/lib/site-data";
 
 interface InquiryDialogProps {
   /** i18n key of the package the visitor clicked, or `CUSTOM_PACKAGE_KEY`. */
@@ -33,7 +28,6 @@ export function InquiryDialog({ packageKey, addons = [], onClose }: InquiryDialo
   const [businessName, setBusinessName] = useState("");
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
-  const [fallbackHref, setFallbackHref] = useState("");
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -55,7 +49,7 @@ export function InquiryDialog({ packageKey, addons = [], onClose }: InquiryDialo
     if (sending) return;
     setSending(true);
     try {
-      const result = await send({
+      await send({
         data: {
           name,
           email,
@@ -67,23 +61,6 @@ export function InquiryDialog({ packageKey, addons = [], onClose }: InquiryDialo
           source: typeof window !== "undefined" ? window.location.pathname : undefined,
         },
       });
-
-      // Nothing reached the studio, so offer a prefilled email instead of
-      // closing with a false confirmation.
-      if (!result.delivered) {
-        setFallbackHref(
-          buildInquiryMailto({
-            name,
-            email,
-            message,
-            business: businessName,
-            packageKey: selectedPackage,
-            addons: selectedAddons,
-          }),
-        );
-        return;
-      }
-
       toast.success(t("formSent"));
       onClose();
     } catch (err) {
@@ -117,19 +94,6 @@ export function InquiryDialog({ packageKey, addons = [], onClose }: InquiryDialo
             {tier && <span className="text-muted-foreground"> — {tier.price}</span>}
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">{t("briefIntro")}</p>
-
-          {fallbackHref && (
-            <div className="mt-5 rounded-2xl border border-border bg-card/60 px-5 py-4 text-sm">
-              <p className="text-foreground">{t("formFallback")}</p>
-              <a
-                href={fallbackHref}
-                className="mt-3 inline-flex items-center gap-2 rounded-full bg-[image:var(--gradient-neon)] px-5 py-2.5 text-sm font-semibold text-primary-foreground"
-              >
-                <Mail className="h-4 w-4" />
-                {t("formFallbackCta")}
-              </a>
-            </div>
-          )}
 
           <div className="mt-6 space-y-4">
             <div>
