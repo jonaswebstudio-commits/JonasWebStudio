@@ -34,3 +34,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Extracted archive copies of this project
+jonas-webstudio-portfolio/
+*.zip
