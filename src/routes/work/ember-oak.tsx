@@ -201,7 +201,7 @@ function Nav() {
   return (
     <header className="absolute inset-x-0 top-0 z-30">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 md:px-10">
-        <Wordmark />
+        <Wordmark size="text-xl sm:text-2xl" />
         <div className="hidden items-center gap-10 md:flex">
           {[
             ["Menu", "#menu"],
@@ -220,7 +220,7 @@ function Nav() {
         </div>
         <a
           href="#reserve"
-          className="rounded-full border border-cream/30 px-5 py-2 text-xs font-medium uppercase tracking-luxe text-cream transition-all hover:border-ember-glow hover:bg-ember-glow/15"
+          className="shrink-0 rounded-full border border-cream/30 px-3.5 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-cream transition-all hover:border-ember-glow hover:bg-ember-glow/15 sm:px-5 sm:text-xs sm:tracking-luxe"
         >
           Book a Table
         </a>
@@ -242,7 +242,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-charcoal/75 via-charcoal/45 to-charcoal/90" />
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 md:px-10">
         <div className="max-w-2xl">
-          <p className="mb-6 text-xs font-medium uppercase tracking-luxe text-ember-glow">
+          <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.22em] text-ember-glow sm:text-xs sm:tracking-luxe">
             Modern Wood-Fired Dining · Est. 2018
           </p>
           <h1 className="font-serif text-5xl font-light leading-[1.05] text-cream md:text-7xl lg:text-8xl">
