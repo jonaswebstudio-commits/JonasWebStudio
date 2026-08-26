@@ -56,7 +56,10 @@ function About() {
 
       <div className="mt-20 grid gap-6 md:grid-cols-3">
         {values.map((v) => (
-          <div key={v.title} className="border border-border bg-card/40 p-8">
+          <div
+            key={v.title}
+            className="border border-border bg-card/40 p-8 transition-colors duration-500 hover:border-primary/50"
+          >
             <h2 className="text-lg">{v.title}</h2>
             <p className="mt-3 text-muted-foreground">{v.body}</p>
           </div>

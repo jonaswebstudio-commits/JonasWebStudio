@@ -66,10 +66,12 @@ function Services() {
             <h2 className="text-2xl text-primary">{g.title}</h2>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {g.items.map(([name, price]) => (
-                <li key={name} className="flex items-baseline gap-4 py-4">
+                <li key={name} className="group flex items-baseline gap-4 py-4">
                   <span className="text-lg">{name}</span>
                   <span className="mx-2 flex-1 border-b border-dotted border-border" />
-                  <span className="font-display text-xl">{price}</span>
+                  <span className="font-display text-xl transition-colors duration-300 group-hover:text-primary">
+                    {price}
+                  </span>
                 </li>
               ))}
             </ul>
