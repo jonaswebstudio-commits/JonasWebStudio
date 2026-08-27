@@ -33,7 +33,7 @@ export const PRICING = [
 ] as const;
 
 export const CARE_PLAN = {
-  price: "€78",
+  price: "€50",
   featureKeys: ["careF1", "careF2", "careF3", "careF4"],
 } as const;
 
