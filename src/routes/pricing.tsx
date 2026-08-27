@@ -14,13 +14,13 @@ export const Route = createFileRoute("/pricing")({
       {
         name: "description",
         content:
-          "Example website pricing from €245. One-page sites, multi-page builds and full custom projects with animations and support — every project quoted individually.",
+          "Example website pricing from €490. One-page sites, multi-page builds and full custom projects with animations and support — every project quoted individually.",
       },
       { property: "og:title", content: "Pricing & Packages — Jonas Webstudio" },
       {
         property: "og:description",
         content:
-          "Clear example prices for custom websites, from €245. Send an inquiry for a free, individual quote.",
+          "Clear example prices for custom websites, from €490. Send an inquiry for a free, individual quote.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

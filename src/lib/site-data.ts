@@ -12,28 +12,28 @@ export const PRICING = [
   {
     key: "tierStarter",
     name: "Starter",
-    price: "€245",
+    price: "€490",
     features: ["f1", "f2", "f3", "f4"],
     featured: false,
   },
   {
     key: "tierGrowth",
     name: "Growth",
-    price: "€495",
+    price: "€990",
     features: ["f5", "f6", "f7", "f8"],
     featured: true,
   },
   {
     key: "tierPremium",
     name: "Premium",
-    price: "€945",
+    price: "€1,890",
     features: ["f9", "f10", "f11", "f12"],
     featured: false,
   },
 ] as const;
 
 export const CARE_PLAN = {
-  price: "€39",
+  price: "€78",
   featureKeys: ["careF1", "careF2", "careF3", "careF4"],
 } as const;
 

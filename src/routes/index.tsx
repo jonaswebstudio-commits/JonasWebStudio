@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Websites that feel like the future — fast, sharp, and built to convert. Custom sites from €245.",
+          "Websites that feel like the future — fast, sharp, and built to convert. Custom sites from €490.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
